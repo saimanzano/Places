@@ -1,0 +1,29 @@
+---
+title: "Untitled"
+output: html_document
+date: "2024-01-30"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(ggmap)
+library(tmaptools)
+world <- ne_countries(scale = "medium", returnclass = "sf")
+Europe <- world[which(world$continent == "Europe"),]
+ggplot(Europe) +
+  geom_sf() +
+  coord_sf(xlim = c(-25,50), ylim = c(35,70), expand = FALSE) +
+  theme_void()
+
+places <- c("Barcelona", "Malaga", "Ferrara")
+nominatim_loc_geo <- geocode_OSM(places,
+                              details = FALSE, as.data.frame = TRUE)
+```
+
